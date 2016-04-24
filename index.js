@@ -17,6 +17,7 @@ var hubName = 'Hub 1',
 var authToken,
 	socket,
 	sensorsDatas = [],
+	Timers = [],
 	hub = {
 		name: hubName,
 		children: []
@@ -73,9 +74,18 @@ socket.on('authenticated', function() {
 			// ...
 			sensorsDatas[datas[0]] = sensorData;
 			console.log(sensorsDatas);
+			console.log('');
 
 			// ...
 			socket.emit('sensorsDatas', sensorData);
+
+			if (Timers[datas[0]]) {
+				clearTimeout(Timers[datas[0]]);
+				delete Timers[datas[0]];
+			}
+			Timers[datas[0]] = setTimeout(function() {
+				delete sensorsDatas[datas[0]];
+			}, delay);
 		}
 	});
 });
