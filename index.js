@@ -72,7 +72,7 @@ socket.on('authenticated', function() {
 			};
 
 			// ...
-			sensorsDatas[SensorData.name] = sensorData;
+			sensorsDatas[sensorData.name] = sensorData;
 			console.log(sensorsDatas);
 
 			// ...
