@@ -16,7 +16,7 @@ var hubName = 'Hub 1',
 // General variables
 var authToken,
 	socket,
-	sensorDatas = [],
+	sensorsDatas = [],
 	hub = {
 		name: hubName,
 		children: []
@@ -62,30 +62,21 @@ socket.on('authenticated', function() {
 
 	// All frames parsed by the XBee will be catched here
 	xbeeAPI.on("frame_object", function(frame) {
-		if (frame.data !== undefined)
-			console.log(frame.data.toString('utf8'));
-		socket.emit('sensorsDatas', frame.data.toString('utf8'));
+		if (frame.data !== undefined) {
+			// ...
+			var datas = frame.data.toString('utf8').split(',');
+			var sensorData = {
+				name: datas[0],
+				battery: datas[1],
+				bpm: datas[3]
+			};
+
+			// ...
+			sensorsDatas[SensorData.name] = sensorData;
+			console.log(sensorsDatas);
+
+			// ...
+			socket.emit('sensorsDatas', sensorData);
+		}
 	});
-
-	/*
-
-		var sensor = {
-			name: ...
-		};
-		hub.children.push(sensor)
-		// Emit the connexion of a new Sensors
-		socket.emit('newSensor', sensor);
-
-
-
-		// Emit the lost of a Sensor
-		socket.emit('sensorLost', sensorName);
-
-
-
-		// Emit every 5 seconds the datas of each sensor connected
-		var interval = setInterval(function() {
-			socket.emit('sensorsDatas', sensorsDatas);
-		}, 1000);
-	*/
 });
