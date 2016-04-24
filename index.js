@@ -46,6 +46,20 @@ var serialport = new SerialPort("/dev/ttyAMA0", {
 	parser: xbeeAPI.rawParser()
 });
 
+serialport.on("open", function() {
+	var frame_obj = {
+		type: 0x10,
+		id: 0x01,
+		destination64: "000000000000FFFF",
+		broadcastRadius: 0x00,
+		options: 0x00
+	};
+	setInterval(function() {
+		serialport.write(xbeeAPI.buildFrame(frame_obj));
+		console.log('Sent to serial port.');
+	}, 5000);
+});
+
 
 
 // Socket.io Websocket connexion init
