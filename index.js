@@ -66,8 +66,8 @@ socket.on('authenticated', function() {
 			// ...
 			var datas = frame.data.toString('utf8').split(',');
 			var sensorData = {
-				battery: datas[1],
-				bpm: datas[2]
+				battery: parseInt(datas[1], 10),
+				bpm: parseInt(datas[2], 10)
 			};
 
 			// ...
