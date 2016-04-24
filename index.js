@@ -66,13 +66,12 @@ socket.on('authenticated', function() {
 			// ...
 			var datas = frame.data.toString('utf8').split(',');
 			var sensorData = {
-				name: datas[0],
 				battery: datas[1],
-				bpm: datas[3]
+				bpm: datas[2]
 			};
 
 			// ...
-			sensorsDatas[sensorData.name] = sensorData;
+			sensorsDatas[datas[0]] = sensorData;
 			console.log(sensorsDatas);
 
 			// ...
