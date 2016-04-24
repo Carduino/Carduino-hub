@@ -76,16 +76,18 @@ socket.on('authenticated', function() {
 			console.log(sensorsDatas);
 			console.log('');
 
-			// ...
-			socket.emit('sensorsDatas', sensorData);
-
+			//...
 			if (Timers[datas[0]]) {
 				clearTimeout(Timers[datas[0]]);
-				delete Timers[datas[0]];
 			}
 			Timers[datas[0]] = setTimeout(function() {
 				delete sensorsDatas[datas[0]];
+				console.log(sensorsDatas);
+				console.log('');
 			}, 3000);
+
+			// ...
+			socket.emit('sensorsDatas', sensorData);
 		}
 	});
 });
