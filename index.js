@@ -85,7 +85,7 @@ socket.on('authenticated', function() {
 			}
 			Timers[datas[0]] = setTimeout(function() {
 				delete sensorsDatas[datas[0]];
-			}, delay);
+			}, 3000);
 		}
 	});
 });
