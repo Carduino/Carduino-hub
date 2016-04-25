@@ -83,7 +83,9 @@ serialport.on("open", function() {
 //-----------------------------------------//
 
 // Socket.io Websocket connexion init
-socket = socketIO('ws://' + serverAddress);
+socket = socketIO('ws://' + serverAddress, {
+	transports: ['websocket']
+});
 
 // Launch authentication process when opening the connexion
 socket.on('connect', function() {
