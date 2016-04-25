@@ -91,6 +91,11 @@ socket.on('connect', function() {
 		token: authToken
 	});
 });
+socket.on('disconnect', function(error) {
+	hub.children = [];
+	sensorsDatas = [];
+	Timers = {};
+});
 
 // When the hub is authenticated
 socket.on('authenticated', function() {
