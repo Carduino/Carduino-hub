@@ -92,8 +92,10 @@ var serialport = new SerialPort("/dev/ttyAMA0", {
 });
 
 // Broadcast the hub address to the sensors periodicaly
-/*
+
 serialport.on("open", function() {
+	console.log('Serial connexion with the Xbee chip established !');
+	/*
 	var frame_obj = {
 		type: 0x10,
 		id: 0x01,
@@ -106,8 +108,8 @@ serialport.on("open", function() {
 		serialport.write(xbeeAPI.buildFrame(frame_obj));
 		console.log('Sent to serial port.');
 	}, 5000);
+	*/
 });
-*/
 
 
 
