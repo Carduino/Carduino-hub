@@ -115,6 +115,7 @@ socket.on('authenticated', function() {
 				for (i = 0; i < hub.length; i++) {
 					if (hub.children[i].name === datas[0]) {
 						socket.emit('newSensor', sensorData);
+						console.log('emit new sensor');
 					}
 				}
 			}
