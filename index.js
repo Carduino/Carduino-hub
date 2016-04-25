@@ -112,7 +112,7 @@ socket.on('authenticated', function() {
 			// Add the sensor to the sensorsDatas array and the hub object
 			sensorsDatas[datas[0]] = sensorData;
 			hub.children.push(datas[0]);
-			console.log(sensorsDatas + '\n');
+			console.log(sensorsDatas);
 
 			// Handle timout expirency for sensors in the sensorsDatas array and the hub object
 			if (Timers[datas[0]]) {
@@ -127,7 +127,7 @@ socket.on('authenticated', function() {
 					hub.children.splice(sensorIndex, 1);
 				}
 				*/
-				console.log(sensorsDatas + '\n');
+				console.log(sensorsDatas);
 			}, 3000);
 
 			// ...
