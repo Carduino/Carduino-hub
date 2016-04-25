@@ -111,7 +111,7 @@ socket.on('authenticated', function() {
 
 			// Add the sensor to the sensorsDatas array and the hub object
 			sensorsDatas[datas[0]] = sensorData;
-			hub.children.push(datas[0]);
+			//hub.children.push(datas[0]);
 
 			// Handle timout expirency for sensors in the sensorsDatas array and the hub object
 			if (Timers[datas[0]]) {
@@ -119,16 +119,17 @@ socket.on('authenticated', function() {
 			}
 			Timers[datas[0]] = setTimeout(function() {
 				delete sensorsDatas[datas[0]];
-				var sensorIndex = hub.children.findIndex(function(sensor) {
+				/*var sensorIndex = hub.children.findIndex(function(sensor) {
 					return sensor.name === datas[0];
 				});
 				if (sensorIndex > -1) {
 					hub.children.splice(sensorIndex, 1);
-				}
+				}*/
 				console.log(sensorsDatas + '\n');
 			}, 3000);
 
 			// ...
+			console.log(sensorsDatas + '\n');
 			socket.emit('sensorsDatas', sensorData);
 		}
 	});
