@@ -7,9 +7,6 @@ var util = require('util'),
 	socketIO = require('socket.io-client'),
 	jwt = require('jsonwebtoken');
 
-// ES6 polyfill
-require('array.prototype.findindex');
-
 
 
 //-----------------------------------------//
@@ -114,11 +111,12 @@ socket.on('authenticated', function() {
 			};
 
 			// ...
-			var sensorIndex = hub.children.findIndex(function(sensor) {
-				return sensor.name === datas[0];
-			});
-			if (sensorIndex < 0) {
-				socket.emit('newSensor', sensorData);
+			if (hub.children && hub.children.length > 0) {
+				for (i = 0; i < hub.length; i++) {
+					if (hub.children[i].name === datas[0]) {
+						socket.emit('newSensor', sensorData);
+					}
+				}
 			}
 
 			// Add the sensor to the sensorsDatas array and the hub object
@@ -135,11 +133,12 @@ socket.on('authenticated', function() {
 			}
 			Timers[datas[0]] = setTimeout(function() {
 				delete sensorsDatas[datas[0]];
-				var sensorIndex = hub.children.findIndex(function(sensor) {
-					return sensor.name === datas[0];
-				});
-				if (sensorIndex > -1) {
-					hub.children.splice(sensorIndex, 1);
+				if (hub.children && hub.children.length > 0) {
+					for (i = 0; i < hub.length; i++) {
+						if (hub.children[i].name === datas[0]) {
+							hub.children.splice(i, 1);
+						}
+					}
 				}
 				socket.emit('sensorLost', data[0]);
 				console.log(sensorsDatas);
