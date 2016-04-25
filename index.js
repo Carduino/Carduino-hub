@@ -112,11 +112,15 @@ socket.on('authenticated', function() {
 
 			// ...
 			if (hub.children) {
+				var newSensor = true;
 				for (i = 0; i < hub.length; i++) {
 					if (hub.children[i].name === datas[0]) {
-						socket.emit('newSensor', sensorData);
-						console.log('emit new sensor');
+						newSensor = false;
 					}
+				}
+				if (newSensor) {
+					socket.emit('newSensor', sensorData);
+					console.log('emit new sensor');
 				}
 			}
 
