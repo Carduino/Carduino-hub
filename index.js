@@ -61,7 +61,7 @@ socket.on('connect', function() {
 	});
 });
 socket.on('disconnect', function() {
-	console.log('Disconnected from the Carduino sevrer!');
+	console.log('Disconnected from the Carduino server!');
 	//hub.children = [];
 	//sensorsDatas = [];
 	//Timers = {};
@@ -95,7 +95,8 @@ var serialport = new SerialPort("/dev/ttyAMA0", {
 
 serialport.on("open", function() {
 	console.log('Serial connexion with the Xbee chip established !');
-	/*
+
+	// Create a message to broadcast to sensors
 	var frame_obj = {
 		type: 0x10,
 		id: 0x01,
@@ -104,11 +105,12 @@ serialport.on("open", function() {
 		options: 0x00,
 		data: "HUB ADDRESS"
 	};
+
+	// Broadcast the hub XBee64Addressevery 5 seconds
 	setInterval(function() {
 		serialport.write(xbeeAPI.buildFrame(frame_obj));
-		console.log('Sent to serial port.');
+		console.log('---- Broadcast hub Address now ----');
 	}, 5000);
-	*/
 });
 
 
