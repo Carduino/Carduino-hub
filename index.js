@@ -91,7 +91,7 @@ socket.on('connect', function() {
 		token: authToken
 	});
 });
-socket.on('disconnect', function(error) {
+socket.on('disconnect', function() {
 	hub.children = [];
 	sensorsDatas = [];
 	Timers = {};
