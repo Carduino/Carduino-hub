@@ -83,27 +83,27 @@ serialport.on("open", function() {
 //-----------------------------------------//
 
 // Socket.io Websocket connexion init
-socket = socketIO('ws://' + serverAddress, {
-	transports: ['websocket']
-});
+socket = socketIO('ws://' + serverAddress);
 
 // Launch authentication process when opening the connexion
 socket.on('connect', function() {
+	console.log('Connected to the Carduino server');
 	socket.emit('authenticate', {
 		token: authToken
 	});
 });
 socket.on('disconnect', function() {
-	hub.children = [];
-	sensorsDatas = [];
-	Timers = {};
+	console.log('Disconnected from the Carduino sevrer!');
+	//hub.children = [];
+	//sensorsDatas = [];
+	//Timers = {};
 });
 
 // When the hub is authenticated
 socket.on('authenticated', function() {
+	console.log('Authenticated on the Carduino server');
 	// Emit the datas refering to the hub and the Sensors connected, and the sensors values
 	socket.emit('newHub', hub);
-
 
 	// All frames parsed by the XBee will be catched here
 	xbeeAPI.on("frame_object", function(frame) {
@@ -128,16 +128,14 @@ socket.on('authenticated', function() {
 				if (newSensor) {
 					hub.children.push(sensorData);
 					socket.emit('newSensor', sensorData);
-					console.log('emit new sensor');
+					console.log('New sensor : ' + datas[0]);
 				}
 			}
 
 			// Add the sensor to the sensorsDatas array and the hub object
 			sensorsDatas[datas[0]] = sensorData;
-			console.log(sensorsDatas);
-
-			// ...
 			socket.emit('sensorData', sensorData);
+			console.log(sensorsDatas);
 
 			// Handle timout expirency for sensors in the sensorsDatas array and the hub object
 			if (Timers[datas[0]]) {
@@ -153,6 +151,7 @@ socket.on('authenticated', function() {
 					}
 				}
 				socket.emit('sensorLost', datas[0]);
+				console.log('Sensor Lost : ' + datas[0]);
 				console.log(sensorsDatas);
 			}, 3000);
 		}
