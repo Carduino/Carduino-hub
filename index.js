@@ -113,7 +113,7 @@ socket.on('authenticated', function() {
 			// ...
 			if (hub.children) {
 				var newSensor = true;
-				for (i = 0; i < hub.length; i++) {
+				for (i = 0; i < hub.children.length; i++) {
 					if (hub.children[i].name === datas[0]) {
 						newSensor = false;
 					}
@@ -122,7 +122,6 @@ socket.on('authenticated', function() {
 					hub.children.push(sensorData);
 					socket.emit('newSensor', sensorData);
 					console.log('emit new sensor');
-					consule.log('hub. children : ' + hub.children);
 				}
 			}
 
@@ -140,7 +139,7 @@ socket.on('authenticated', function() {
 			Timers[datas[0]] = setTimeout(function() {
 				delete sensorsDatas[datas[0]];
 				if (hub.children) {
-					for (i = 0; i < hub.length; i++) {
+					for (i = 0; i < hub.children.length; i++) {
 						if (hub.children[i].name === datas[0]) {
 							hub.children.splice(i, 1);
 						}
