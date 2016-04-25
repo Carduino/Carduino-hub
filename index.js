@@ -122,6 +122,7 @@ socket.on('authenticated', function() {
 					hub.children.push(sensorData);
 					socket.emit('newSensor', sensorData);
 					console.log('emit new sensor');
+					consule.log('hub. children : ' + hub.children);
 				}
 			}
 
