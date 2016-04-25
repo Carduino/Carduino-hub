@@ -7,6 +7,9 @@ var util = require('util'),
 	socketIO = require('socket.io-client'),
 	jwt = require('jsonwebtoken');
 
+// ES6 polyfill
+require('array.prototype.findindex');
+
 
 
 //-----------------------------------------//

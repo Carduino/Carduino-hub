@@ -17,6 +17,7 @@
 	},
 	"homepage": "https://github.com/Carduino/Carduino-hub#readme",
 	"dependencies": {
+		"array.prototype.findindex": "^2.0.0",
 		"jsonwebtoken": "^5.7.0",
 		"serialport": "^2.1.0",
 		"socket.io-client": "^1.4.5",
