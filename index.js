@@ -119,6 +119,7 @@ socket.on('authenticated', function() {
 					}
 				}
 				if (newSensor) {
+					hub.children.push(sensorData);
 					socket.emit('newSensor', sensorData);
 					console.log('emit new sensor');
 				}
@@ -126,7 +127,6 @@ socket.on('authenticated', function() {
 
 			// Add the sensor to the sensorsDatas array and the hub object
 			sensorsDatas[datas[0]] = sensorData;
-			hub.children.push(sensorData);
 			console.log(sensorsDatas);
 
 			// ...
