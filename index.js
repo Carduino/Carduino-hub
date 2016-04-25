@@ -104,14 +104,23 @@ socket.on('authenticated', function() {
 			// Read datas from a sensor
 			var datas = frame.data.toString('utf8').split(',');
 			var sensorData = {
+				name: datas[0],
 				battery: parseInt(datas[1], 10),
 				bpm: parseInt(datas[2], 10),
 				timestamp: Date.now()
 			};
 
+			// ...
+			var sensorIndex = hub.children.findIndex(function(sensor) {
+				return sensor.name === datas[0];
+			});
+			if (sensorIndex < 0) {
+				socket.emit('newSensor', sensorData);
+			}
+
 			// Add the sensor to the sensorsDatas array and the hub object
 			sensorsDatas[datas[0]] = sensorData;
-			hub.children.push(datas[0]);
+			hub.children.push(sensorData);
 			console.log(sensorsDatas);
 
 			// ...
@@ -129,6 +138,7 @@ socket.on('authenticated', function() {
 				if (sensorIndex > -1) {
 					hub.children.splice(sensorIndex, 1);
 				}
+				socket.emit('sensorLost', data[0]);
 				console.log(sensorsDatas);
 			}, 3000);
 		}
