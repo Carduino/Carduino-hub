@@ -110,7 +110,7 @@ serialport.on("open", function() {
 	setInterval(function() {
 		serialport.write(xbeeAPI.buildFrame(frame_obj));
 		console.log('---- Broadcast hub Address now ----');
-	}, 5000);
+	}, 1000);
 });
 
 
