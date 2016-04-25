@@ -111,7 +111,7 @@ socket.on('authenticated', function() {
 			};
 
 			// ...
-			if (hub.children && hub.children.length > 0) {
+			if (hub.children) {
 				for (i = 0; i < hub.length; i++) {
 					if (hub.children[i].name === datas[0]) {
 						socket.emit('newSensor', sensorData);
@@ -133,7 +133,7 @@ socket.on('authenticated', function() {
 			}
 			Timers[datas[0]] = setTimeout(function() {
 				delete sensorsDatas[datas[0]];
-				if (hub.children && hub.children.length > 0) {
+				if (hub.children) {
 					for (i = 0; i < hub.length; i++) {
 						if (hub.children[i].name === datas[0]) {
 							hub.children.splice(i, 1);
