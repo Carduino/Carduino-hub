@@ -23,7 +23,7 @@ var hubName = 'Hub 1',
 var authToken,
 	socket,
 	sensorsDatas = [], // Almost realtime representation of the connected sensors
-	Timers = [], // Used to store expirency timeouts
+	Timers = {}, // Used to store expirency timeouts
 	hub = {
 		name: hubName,
 		children: []
@@ -112,6 +112,7 @@ socket.on('authenticated', function() {
 			// Add the sensor to the sensorsDatas array and the hub object
 			sensorsDatas[datas[0]] = sensorData;
 			hub.children.push(datas[0]);
+			console.log(sensorsDatas + '\n');
 
 			// Handle timout expirency for sensors in the sensorsDatas array and the hub object
 			if (Timers[datas[0]]) {
@@ -130,7 +131,6 @@ socket.on('authenticated', function() {
 			}, 3000);
 
 			// ...
-			console.log(sensorsDatas + '\n');
 			socket.emit('sensorsDatas', sensorData);
 		}
 	});
